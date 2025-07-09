@@ -31,12 +31,11 @@ class LoginViewController: UIViewController{
             DispatchQueue.main.async {
                 if sucesso {
                     // Navegar
-                    let alert = UIAlertController(title: "Sucesso", message: "Login bem-sucedido!", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default))
-                    self?.present(alert, animated: true)
+                    let homeViewController = HomeViewController()
+                    self?.navigationController?.setViewControllers([homeViewController], animated: true)
                 } else {
-                    let alert = UIAlertController(title: "Erro", message: "Usuário ou senha inválidos.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    let alert = UIAlertController(title: "Login inválido", message: "Usuário ou senha incorretos.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Tentar novamente", style: .default))
                     self?.present(alert, animated: true)
                 }
             }
