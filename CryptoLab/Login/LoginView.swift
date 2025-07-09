@@ -9,6 +9,7 @@ import UIKit
 
 class LoginView: UIView{
     
+    //MARK: Components
     let imageIcon: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "CryptoLabIcon")
@@ -48,6 +49,17 @@ class LoginView: UIView{
         return btn
     }()
     
+    let errorLabel: UILabel = {
+        let lb = UILabel()
+        lb.textColor = .systemRed
+        lb.font = .systemFont(ofSize: 18)
+        lb.numberOfLines = 0
+        lb.isHidden = true
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
+    
+    //MARK: Init
     override init (frame: CGRect){
         super.init(frame: frame)
         setHierarchy()
@@ -57,13 +69,16 @@ class LoginView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Hierarchy
     private func setHierarchy(){
         addSubview(imageIcon)
         addSubview(emailTextField)
         addSubview(passwordTextField)
         addSubview(loginButton)
+        addSubview(errorLabel)
     }
     
+    //MARK: Constrains
     private func setConstrains(){
         NSLayoutConstraint.activate([
             imageIcon.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 100),
@@ -84,7 +99,10 @@ class LoginView: UIView{
             loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 26),
             loginButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             loginButton.heightAnchor.constraint(equalToConstant: 48),
-            loginButton.widthAnchor.constraint(equalToConstant: 200)
+            loginButton.widthAnchor.constraint(equalToConstant: 200),
+            
+            errorLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 12),
+            errorLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
     
