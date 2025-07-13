@@ -10,13 +10,17 @@ import Foundation
 enum LoginValidationError: Error {
     case camposVazios
     case emailInvalido
+    case senhaVazia
 }
 
 class LoginViewModel{
-    //Validaçao campos e E-Mail
+    //Validaçao dos campos e E-Mail
     func validar(email: String, senha: String) -> LoginValidationError? {
-        if email.isEmpty || senha.isEmpty {
-            return .camposVazios
+        if email.isEmpty {
+            return .emailInvalido
+        }
+        if senha.isEmpty {
+            return .senhaVazia
         }
         if !LoginViewModel.emailValido(email) {
             return .emailInvalido
@@ -26,13 +30,15 @@ class LoginViewModel{
     
     //Lógica do Login
     func login(email: String, senha: String, completion: @escaping (Bool) -> Void) {
-        if email == "teste@gmail.com" && senha == "123456" {
-            completion(true)
-        } else {
-            completion(false)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            if email == "teste@gmail.com" && senha == "123456" {
+                completion(true)
+            } else {
+                completion(false)
+            }
         }
     }
-    
+
     //Validaçao de formato E-Mail
     private static func emailValido(_ email: String) -> Bool {
         let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
