@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9299BE8D2E259DE4005FD1A6 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9299BE8C2E259DE4005FD1A6 /* FirebaseAuth */; };
+		9299BE8F2E259DE4005FD1A6 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 9299BE8E2E259DE4005FD1A6 /* FirebaseCore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		92D36DFB2E1424F300C2FC4F /* CryptoLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9299BE8F2E259DE4005FD1A6 /* FirebaseCore in Frameworks */,
+				9299BE8D2E259DE4005FD1A6 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,8 +84,6 @@
 				92D36DFD2E1424F300C2FC4F /* CryptoLab */,
 			);
 			name = CryptoLab;
-			packageProductDependencies = (
-			);
 			productName = CryptoLab;
 			productReference = 92D36DFB2E1424F300C2FC4F /* CryptoLab.app */;
 			productType = "com.apple.product-type.application";
@@ -107,6 +112,9 @@
 			);
 			mainGroup = 92D36DF22E1424F300C2FC4F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				9299BE8B2E259DE4005FD1A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 92D36DFC2E1424F300C2FC4F /* Products */;
 			projectDirPath = "";
@@ -157,7 +165,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Joao.Almeida.CryptoLab;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joaoalmeida.CryptoLab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -184,7 +192,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Joao.Almeida.CryptoLab;
+				PRODUCT_BUNDLE_IDENTIFIER = com.joaoalmeida.CryptoLab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -333,6 +341,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9299BE8B2E259DE4005FD1A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.15.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9299BE8C2E259DE4005FD1A6 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9299BE8B2E259DE4005FD1A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		9299BE8E2E259DE4005FD1A6 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9299BE8B2E259DE4005FD1A6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 92D36DF32E1424F300C2FC4F /* Project object */;
 }

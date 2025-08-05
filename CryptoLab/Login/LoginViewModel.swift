@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 enum LoginValidationError: Error {
     case camposVazios
@@ -30,12 +31,13 @@ class LoginViewModel{
     
     //Lógica do Login
     func login(email: String, senha: String, completion: @escaping (Bool) -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            if email == "teste@gmail.com" && senha == "123456" {
-                completion(true)
-            } else {
+        Auth.auth().signIn(withEmail: email, password: senha) { result, error in
+            guard let error = error else {
+                print("Error ao fazer login")
                 completion(false)
+                return
             }
+            completion(true)
         }
     }
 

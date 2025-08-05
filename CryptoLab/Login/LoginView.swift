@@ -33,7 +33,7 @@ class LoginView: UIView{
         return  img
     }()
     
-    let emailTextField: UITextField = {
+    lazy var emailTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "E-Mail"
         tf.backgroundColor = .backgroundColor
@@ -42,6 +42,11 @@ class LoginView: UIView{
         tf.heightAnchor.constraint(equalToConstant: 44).isActive = true
         tf.returnKeyType = .next
         tf.autocapitalizationType = .none
+        tf.layer.shadowColor = UIColor.black.cgColor
+        tf.layer.shadowOpacity = 0.1
+        tf.layer.shadowOffset = CGSize(width: 0, height: 3)
+        tf.layer.shadowRadius = 8
+        tf.layer.masksToBounds = false
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
@@ -56,6 +61,11 @@ class LoginView: UIView{
         tf.autocapitalizationType = .none
         tf.returnKeyType = .done
         tf.isSecureTextEntry = true
+        tf.layer.shadowColor = UIColor.black.cgColor
+        tf.layer.shadowOpacity = 0.1
+        tf.layer.shadowOffset = CGSize(width: 0, height: 3)
+        tf.layer.shadowRadius = 8
+        tf.layer.masksToBounds = false
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
@@ -68,6 +78,11 @@ class LoginView: UIView{
         btn.backgroundColor = .buttonColor
         btn.setTitleColor(.textPrimary, for: .normal)
         btn.layer.cornerRadius = 8
+        btn.layer.shadowColor = UIColor.black.cgColor
+        btn.layer.shadowOpacity = 0.1
+        btn.layer.shadowOffset = CGSize(width: 0, height: 3)
+        btn.layer.shadowRadius = 12
+        btn.layer.masksToBounds = false
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -149,6 +164,10 @@ class LoginView: UIView{
             stackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -40),
         ])
     }
+}
+
+extension LoginView {
+    
 }
 
 #if swift(>=5.9)
