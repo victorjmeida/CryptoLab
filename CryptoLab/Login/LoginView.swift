@@ -7,14 +7,20 @@
 
 import UIKit
 
+protocol LoginViewDelegate: AnyObject {
+    func loginButtonTapped()
+}
+
 class LoginView: UIView{
     
     //MARK: Components
     
-    let scrollView = UIScrollView()
-    let contentView = UIView()
+    lazy var scrollView = UIScrollView()
+    private lazy var contentView = UIView()
     
-    let stackView: UIStackView = {
+    weak var delegate: LoginViewDelegate?
+    
+    private lazy var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 24
@@ -23,7 +29,7 @@ class LoginView: UIView{
         return stack
     }()
     
-    let imageIcon: UIImageView = {
+    private lazy var imageIcon: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(named: "CryptoLabIcon")
         img.contentMode = .scaleAspectFit
@@ -51,7 +57,7 @@ class LoginView: UIView{
         return tf
     }()
     
-    let passwordTextField: UITextField = {
+    lazy var passwordTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Senha"
         tf.backgroundColor = .backgroundColor
@@ -70,13 +76,14 @@ class LoginView: UIView{
         return tf
     }()
     
-    let loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Entrar", for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         btn.heightAnchor.constraint(equalToConstant: 48).isActive = true
         btn.backgroundColor = .buttonColor
         btn.setTitleColor(.textPrimary, for: .normal)
+        btn.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
         btn.layer.cornerRadius = 8
         btn.layer.shadowColor = UIColor.black.cgColor
         btn.layer.shadowOpacity = 0.1
@@ -87,7 +94,7 @@ class LoginView: UIView{
         return btn
     }()
     
-    let errorLabel: UILabel = {
+    private lazy var errorLabel: UILabel = {
         let lb = UILabel()
         lb.textColor = .systemRed
         lb.font = .systemFont(ofSize: 20, weight: .semibold)
@@ -97,14 +104,14 @@ class LoginView: UIView{
         return lb
     }()
     
-    let activityIndicator: UIActivityIndicatorView = {
+    private lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.hidesWhenStopped = true
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
     
-    let togglePasswordButton: UIButton = {
+    private lazy var togglePasswordButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(systemName: "eye"), for: .normal)
         btn.tintColor = .gray
@@ -120,6 +127,19 @@ class LoginView: UIView{
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(data: LoginModel) {
+        
+        if data.isError {
+            errorLabel.text = data.errorLabel
+            errorLabel.isHidden = false
+            emailTextField.becomeFirstResponder()
+        }
+    }
+    
+    func getCredentials() -> (email: String, password: String) {
+        return (emailTextField.text ?? "", passwordTextField.text ?? "")
     }
     
     //MARK: Hierarchy
@@ -163,6 +183,40 @@ class LoginView: UIView{
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
             stackView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -40),
         ])
+    }
+    
+    @objc private func togglePasswordVisibility() {
+        passwordTextField.isSecureTextEntry.toggle()
+        let eyeIconName = passwordTextField.isSecureTextEntry ? "eye.slash" : "eye"
+        togglePasswordButton.setImage(UIImage(systemName: eyeIconName), for: .normal)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            textField.resignFirstResponder()
+            didTapLogin()
+        }
+        return true
+    }
+    
+    func validar(email: String, senha: String) -> LoginValidationError? {
+        if email.isEmpty {
+            return .emailInvalido
+        }
+        if senha.isEmpty {
+            return .senhaVazia
+        }
+        return nil
+    }
+    
+    @objc private func didTapLogin() {
+       activityIndicator.stopAnimating()
+       loginButton.isEnabled = true
+        
+        delegate?.loginButtonTapped()
+        
     }
 }
 
