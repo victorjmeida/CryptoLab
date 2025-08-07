@@ -14,7 +14,6 @@ enum LoginValidationError: Error {
 }
 
 // Depence Injector
-
 final class LoginViewModel {
     
     private let service: SignInServiceProtocol

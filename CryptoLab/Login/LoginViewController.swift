@@ -10,7 +10,7 @@ import UIKit
 class LoginViewController: UIViewController, UITextFieldDelegate{
     
     private let loginView = LoginView()
-    private let viewModel = LoginViewModel(service: SignInServiceMock())
+    private let viewModel = LoginViewModel(service: SignInService())
 
     override func loadView() {
         view = loginView
