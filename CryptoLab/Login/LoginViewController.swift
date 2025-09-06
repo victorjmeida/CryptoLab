@@ -10,6 +10,7 @@ import UIKit
 class LoginViewController: UIViewController, UITextFieldDelegate{
     
     private let loginView = LoginView()
+    //Aqui escolho se quero usar Firebase ou Mock:
     private let viewModel = LoginViewModel(service: SignInService())
 
     override func loadView() {
@@ -82,6 +83,5 @@ class LoginViewController: UIViewController, UITextFieldDelegate{
 extension LoginViewController: LoginViewDelegate {
     func loginButtonTapped() {
         self.login()
-       
     }
 }
